@@ -29,6 +29,10 @@ public class IncomeAccount {
         return balance;
     }
 
+    public void editTransaction(int index,String newvalue){
+        this.transaction.get(index).set(2, newvalue);
+    }
+
     public ArrayList<ArrayList<String>> getTransaction() {
         return transaction;
     }

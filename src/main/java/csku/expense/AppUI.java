@@ -12,19 +12,23 @@ public class AppUI {
         User user = new User(name);
 
         while (true){
-            System.out.println("Type I(add income), E(add expense), L(show all), X(exit): ");
+            System.out.println("Type I(add income), EX(add expense), L(show all), ED(edit), X(exit): ");
             String input = in.nextLine();
             if (input.equalsIgnoreCase("I")){
                 System.out.println("-------------------------------");
                 addTransaction(user, "i");
                 System.out.println("-------------------------------");
-            }else if (input.equalsIgnoreCase("E")){
+            }else if (input.equalsIgnoreCase("EX")){
                 System.out.println("-------------------------------");
                 addTransaction(user, "e");
                 System.out.println("-------------------------------");
             }else if (input.equalsIgnoreCase("L")){
                 System.out.println("-------------------------------");
                 showList(user);
+                System.out.println("-------------------------------");
+            }else if (input.equalsIgnoreCase("ED")){
+                System.out.println("-------------------------------");
+                edit(user);
                 System.out.println("-------------------------------");
             }else if (input.equalsIgnoreCase("x")){
                 break;
@@ -63,5 +67,15 @@ public class AppUI {
             }
         }
         System.out.println("Balance:            " + user.getAccount().getBalance());
+    }
+
+    public void edit(User user){
+        showList(user);
+        System.out.println("-------------------------------");
+        System.out.println("Which index do you want to edit?");
+        String index = in.nextLine();
+        System.out.println("New Value: ");
+        String nv = in.nextLine();
+        user.getAccount().editTransaction(Integer.parseInt(index)-1,nv);
     }
 }

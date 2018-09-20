@@ -1,5 +1,6 @@
 package csku.expense;
 
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,6 +25,14 @@ public class UnitTestIncomeAccount {
     void testAddExpense(){
         account.addTransaction("e", "food", "100");
         assertEquals(4900.0, account.getBalance().doubleValue());
+    }
+
+    @Test
+    void testEditExpense(){
+        account.addTransaction("e", "drink", "500");
+        account.addTransaction("e", "food", "100");
+        account.editTransaction(1,"50");
+        assertEquals(4850.0, account.getBalance().doubleValue());
     }
 
 }
