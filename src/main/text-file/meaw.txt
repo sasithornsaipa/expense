@@ -1,0 +1,3 @@
+i mom 5000
+e food 200
+e drink 100

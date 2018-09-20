@@ -1,5 +1,10 @@
 package csku.expense;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -34,6 +39,8 @@ public class AppUI {
                 break;
             }
         }
+        writeFile(user, user.getAccount().getTransaction());
+        readFile(user);
     }
 
     public void addTransaction(User user, String t){
@@ -78,4 +85,37 @@ public class AppUI {
         String nv = in.nextLine();
         user.getAccount().editTransaction(Integer.parseInt(index)-1,nv);
     }
+
+    public void readFile(User user){
+        try {
+            Path file = Paths.get("./src/main/text-file/" + user.getName() + ".txt");
+            BufferedReader reader = Files.newBufferedReader(file ,
+                    StandardCharsets.UTF_8);
+            String line = null;
+
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line.split(" ")[0]+" "+line.split(" ")[1]+" "+line.split(" ")[2]);
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
+        }
+    }
+
+    public void writeFile(User user, ArrayList<ArrayList<String>> content){
+        try {
+            Path file = Paths.get("./src/main/text-file/" + user.getName() + ".txt");
+            BufferedWriter writer = Files.newBufferedWriter(file,
+                    StandardCharsets.UTF_8);
+
+            for (int i = 0; i < content.size(); i++) {
+                writer.write(content.get(i).get(0)+" "+content.get(i).get(1)+" "+content.get(i).get(2));
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
+        }
+    }
+
 }
